@@ -3,9 +3,25 @@
 A CLI tool that converts medium posts (html) into Jekyll/Hugo compatible markdown files. Also downloads images and adds yaml front matter to the converted markdown files.
 It works with exported Medium posts (local html files) and converts them to markdown using a single command. It can be useful in scenarios when you want to migrate your blog away from Medium to Jekyll or Hugo (or something similar that supports markdown content).
 
-## Steps to use
+## Install
 
-### Convert local Medium exports
+### From npm
+
+```sh
+npm install -g medium-2-md
+```
+
+### Git repository clone
+
+```sh
+git clone 
+npm install
+node index.js <cli-flags...>
+```
+
+## How to use
+
+### Typical usecase: Convert local Medium exports
 
 1. Export and extract your Medium posts from your Medium account.
    1. Go to `https://medium.com/me/settings` and scroll to `Download your information`. Click the download button. This will give you a `medium-export.zip` archive containing all your Medium content.
@@ -28,29 +44,45 @@ The converted markdown files include front matter containing title, description,
 
 The `convertLocal` command supports the following optional flags,
 
-1. `-f` or `--frontMatter`: Add the front matter on top of the markdown files.
-1. `-i` or `--images`: Download images to a local `img` sub-directory.
-1. `-op` or `--path`: Custom path for saving markdown files.
-1. `-ip` or `--img-path`: Custom path for downloading images.
-1. `-d` or `--drafts`: Convert the drafts too.
+- `-f` or `--frontMatter`: Add the front matter on top of the markdown files.
+- `-i` or `--images`: Download images to a local `img` sub-directory.
+- `-op` or `--path`: Custom path for saving markdown files.
+- `-ip` or `--img-path`: Custom path for downloading images.
+- `-d` or `--drafts`: Convert the drafts too.
 
-#### Example: Convert from local - front matter and images but no drafts
+## Usage examples
 
-```code
+### Example: Convert from local - front matter and images but no drafts
+
+```sh
 medium-2-md convertLocal '/home/user/Desktop/posts' -fi
 ```
 
-#### Example: Convert from local - default output and images path
+### Example: Convert from local - default output and images path
 
-```code
+```sh
 medium-2-md convertLocal '/home/user/Desktop/posts' -dfi
 ```
 
-#### Example: Convert from local - with custom output and images path
+### Example: Convert from local - with custom output and images path
 
-```code
+```sh
 medium-2-md convertLocal '/home/user/Desktop/posts' -dfi --path '/home/user/Desktop/md' --img-path '/home/user/Downloads/img'
 ```
+
+### Example: override the image path with alias
+
+The following will execute the program from the cloned repository locally,
+download imags (`-i`), use a frontmatter (`-f`), provide an alias to load
+all images from a specific path (`--img-path-alias`) and process all the
+HTML files exported from Medium at the `../test` directory.
+
+```sh
+node index.js convertLocal -fi --img-path-alias "~/assets/images/"  ../test
+```
+
+The result of this command lives in the `../test/md-1298731725` directory that
+is generated using a random hash.
 
 Note: The flags do not support any defaults. You need to add them in order to get the respective results (drafts, images and/or front matter inclusion).
 
