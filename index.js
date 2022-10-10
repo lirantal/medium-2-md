@@ -17,6 +17,7 @@ program
   .option("-op, --path <path>", "Custom path for saving markdown files.")
   .option("-ip, --img-path <imgpath>", "Custom path for downloading images.")
   .option("-ip-alias, --img-path-alias <imgpath>", "Override generated image paths in content markdown with this alias which is different from downloaded images.")
+  .option("-ip-featured, --img-path-featured <img>", "Use this directory to refer to featured images")
   .action(workflow.processAll);
 
 // Convert from url has been removed.
